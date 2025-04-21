@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background"
+              android:orientation="vertical">
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            app:hintTextColor="@color/primary"
+            app:boxStrokeColor="@color/primary">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search candidates..."
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:textColor="@color/text_primary"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.chip.ChipGroup
+            android:id="@+id/filter_chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="8dp">
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/filter_skills"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Skills"
+                app:chipBackgroundColor="@color/primary"
+                app:chipStrokeColor="@color/primary_dark"
+                app:chipStrokeWidth="1dp"
+                app:checkedIconTint="@color/white"
+                app:chipIconTint="@color/white"
+                app:textStartPadding="8dp"
+                app:textEndPadding="8dp"/>
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/filter_education"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Education"
+                app:chipBackgroundColor="@color/primary"
+                app:chipStrokeColor="@color/primary_dark"
+                app:chipStrokeWidth="1dp"
+                app:checkedIconTint="@color/white"
+                app:chipIconTint="@color/white"
+                app:textStartPadding="8dp"
+                app:textEndPadding="8dp"/>
+
+        <com.google.android.material.chip.Chip
+                android:id="@+id/filter_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                app:chipBackgroundColor="@color/primary"
+                app:chipStrokeColor="@color/primary_dark"
+                app:chipStrokeWidth="1dp"
+                app:checkedIconTint="@color/white"
+                app:chipIconTint="@color/white"
+                app:textStartPadding="8dp"
+                app:textEndPadding="8dp"/>
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/candidates_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="8dp"/>
+</LinearLayout>

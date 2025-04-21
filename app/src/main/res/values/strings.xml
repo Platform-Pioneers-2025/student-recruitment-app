@@ -8,4 +8,9 @@
     <string name="register">Register</string>
     <string name="app_name">GradConnect2025</string>
     <string name="app_tagline">Your Career Connection Starts Here</string>
+    <string name="already_have_account_login">Already have an account? Login</string>
+    <!--Employer-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>
