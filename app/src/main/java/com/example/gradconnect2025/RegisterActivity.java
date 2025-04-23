@@ -3,11 +3,13 @@ package com.example.gradconnect2025;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.widget.*;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.RadioButton;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -18,12 +20,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    // UI Components
     private EditText editTextFullName, editTextEmail, editTextPassword, editTextConfirmPassword;
     private RadioGroup radioGroupUserType;
     private Button buttonRegister;
-
-    // Firebase Auth
+    private TextView textViewLogin;
     private FirebaseAuth mAuth;
 
     @Override
@@ -32,26 +32,30 @@ public class RegisterActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_register);
 
-        // Apply edge-to-edge padding
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Firebase
         mAuth = FirebaseAuth.getInstance();
 
-        // Initialize UI elements
         editTextFullName = findViewById(R.id.editTextFullName);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextConfirmPassword = findViewById(R.id.editTextConfirmPassword);
         radioGroupUserType = findViewById(R.id.radioGroupUserType);
         buttonRegister = findViewById(R.id.buttonRegister);
+        textViewLogin = findViewById(R.id.textViewLogin);
 
-        // Register button click
         buttonRegister.setOnClickListener(view -> registerUser());
+
+        textViewLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        });
     }
 
     private void registerUser() {
@@ -61,7 +65,6 @@ public class RegisterActivity extends AppCompatActivity {
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
         int selectedRadioId = radioGroupUserType.getCheckedRadioButtonId();
 
-        // Validation
         if (fullName.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
             return;
@@ -90,17 +93,14 @@ public class RegisterActivity extends AppCompatActivity {
         RadioButton selectedRadio = findViewById(selectedRadioId);
         String userType = selectedRadio.getText().toString();
 
-        // Create user with Firebase
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(this, "Registered as " + userType, Toast.LENGTH_SHORT).show();
-
-                        // Move to Login screen
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                        finish(); // Prevent back to Register
+                        finish();
                     } else {
                         Toast.makeText(this, "Registration failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="160dp"
+              android:background="@color/primary_dark"
+              android:orientation="vertical"
+              android:padding="16dp"
+              android:gravity="bottom">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_company"
+            android:layout_marginBottom="8dp"/>
+
+    <TextView
+            android:id="@+id/company_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Company Name"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+    <TextView
+            android:id="@+id/company_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="contact@company.com"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
+</LinearLayout>

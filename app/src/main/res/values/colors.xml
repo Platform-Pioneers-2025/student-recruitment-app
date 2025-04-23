@@ -10,4 +10,15 @@
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#757575</color>
 
+    <!-- Employer specific colors -->
+    <color name="employer_primary">#2E7D32</color> <!-- Dark Green -->
+    <color name="employer_primary_dark">#1B5E20</color>
+    <color name="employer_accent">#FFC107</color> <!-- Amber -->
+    <color name="employer_background">#F5F5F5</color>
+    <color name="employer_card_background">#FFFFFF</color>
+    <color name="employer_text_primary">#212121</color>
+    <color name="employer_text_secondary">#757575</color>
+    <color name="employer_divider">#E0E0E0</color>
+
+
 </resources>
