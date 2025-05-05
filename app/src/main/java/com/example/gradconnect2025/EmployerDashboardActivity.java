@@ -4,21 +4,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +35,17 @@ public class EmployerDashboardActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_empl_dashboard);
 
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+
+        // Initialize views
         tvActiveJobs = findViewById(R.id.tv_active_jobs);
         tvNewMessages = findViewById(R.id.tv_new_messages);
         tvShortlisted = findViewById(R.id.tv_shortlisted);
@@ -44,9 +54,11 @@ public class EmployerDashboardActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+        // Set up toolbar
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Set up navigation drawer
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open,
@@ -54,21 +66,59 @@ public class EmployerDashboardActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        // Set up navigation drawer item selection
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.nav_logout) {
+                showLogoutConfirmation();
+                return true;
+            }
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return true;
+        });
+
         setupActionGrid();
         setupBottomNavigation();
         loadDashboardData();
     }
 
+    private void showLogoutConfirmation() {
+        new AlertDialog.Builder(this)
+                .setTitle("Logout")
+                .setMessage("Are you sure you want to logout?")
+                .setPositiveButton("Yes", (dialog, which) -> logoutUser())
+                .setNegativeButton("No", null)
+                .setIcon(ContextCompat.getDrawable(this, R.drawable.ic_logout))
+                .show();
+    }
+
+    private void logoutUser() {
+        mAuth.signOut();
+        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+
+        // Redirect to LoginActivity and clear back stack
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void setupActionGrid() {
         List<DashboardAction> actions = new ArrayList<>();
-        actions.add(new DashboardAction("Post Job", R.drawable.ic_post_job,
-                v -> startActivity(new Intent(this, PostJobActivity.class))));
-        actions.add(new DashboardAction("Search Candidates", R.drawable.ic_search,
-                v -> startActivity(new Intent(this, CandidateSearchActivity.class))));
+        actions.add(new DashboardAction("Manage Jobs", R.drawable.ic_manage_jobs,
+                v -> startActivity(new Intent(this, ManageJobsActivity.class))));
         actions.add(new DashboardAction("Messages", R.drawable.ic_messages,
                 v -> startActivity(new Intent(this, EmployerMessagesActivity.class))));
-        actions.add(new DashboardAction("Analytics", R.drawable.ic_analytics,
-                v -> startActivity(new Intent(this, AnalyticsActivity.class))));
 
         DashboardGridAdapter adapter = new DashboardGridAdapter(this, actions);
         gridActions.setAdapter(adapter);
@@ -82,18 +132,13 @@ public class EmployerDashboardActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_jobs) {
                 startActivity(new Intent(this, ManageJobsActivity.class));
                 return true;
-            } else if (itemId == R.id.nav_candidates) {
-                startActivity(new Intent(this, CandidateSearchActivity.class));
-                return true;
-            } else if (itemId == R.id.nav_messages) {
-                startActivity(new Intent(this, EmployerMessagesActivity.class));
-                return true;
             }
             return false;
         });
     }
 
     private void loadDashboardData() {
+        // Replace with actual data loading logic
         tvActiveJobs.setText("12");
         tvNewMessages.setText("5");
         tvShortlisted.setText("8");
@@ -148,7 +193,6 @@ public class EmployerDashboardActivity extends AppCompatActivity {
             TextView title = convertView.findViewById(R.id.action_title);
 
             icon.setImageResource(action.iconRes);
-            icon.setColorFilter(ContextCompat.getColor(context, R.color.primary));
             title.setText(action.title);
 
             convertView.setOnClickListener(action.onClickListener);

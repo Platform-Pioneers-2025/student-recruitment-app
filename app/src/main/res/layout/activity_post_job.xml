@@ -12,6 +12,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+        <!-- Job Title -->
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,9 +25,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Job Title"
-                    android:textColor="@color/text_primary"/>
+                    android:textColor="@color/text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Job Description -->
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,9 +43,10 @@
                     android:gravity="top"
                     android:hint="Job Description"
                     android:inputType="textMultiLine"
-                    android:textColor="@color/text_primary"/>
+                    android:textColor="@color/text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Job Location -->
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,16 +59,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Location"
-                    android:textColor="@color/text_primary"/>
+                    android:textColor="@color/text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Job Type Label -->
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Job Type"
                 android:textColor="@color/text_primary"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp" />
 
+        <!-- Job Type RadioGroup -->
         <RadioGroup
                 android:id="@+id/job_type_group"
                 android:layout_width="match_parent"
@@ -77,23 +82,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Full-time"
-                    android:textColor="@color/text_primary"/>
+                    android:textColor="@color/text_primary" />
 
             <RadioButton
                     android:id="@+id/part_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Part-time"
-                    android:textColor="@color/text_primary"/>
+                    android:textColor="@color/text_primary" />
 
             <RadioButton
                     android:id="@+id/internship"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Internship"
-                    android:textColor="@color/text_primary"/>
+                    android:textColor="@color/text_primary" />
         </RadioGroup>
 
+        <!-- Application Deadline -->
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -107,9 +113,10 @@
                     android:layout_height="wrap_content"
                     android:hint="Application Deadline"
                     android:inputType="date"
-                    android:textColor="@color/text_primary"/>
+                    android:textColor="@color/text_primary" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Post Job Button -->
         <Button
                 android:id="@+id/post_job_button"
                 android:layout_width="match_parent"
@@ -117,7 +124,7 @@
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/primary"
                 android:text="Post Job"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
     </LinearLayout>
 </ScrollView>

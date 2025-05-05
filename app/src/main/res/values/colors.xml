@@ -20,5 +20,9 @@
     <color name="employer_text_secondary">#757575</color>
     <color name="employer_divider">#E0E0E0</color>
 
+    <color name="divider">#E0E0E0</color> <!-- Matches employer_divider -->
+    <color name="error">#D32F2F</color>   <!-- Standard material red -->
+
+
 
 </resources>

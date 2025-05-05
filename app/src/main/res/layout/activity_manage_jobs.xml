@@ -5,12 +5,25 @@
               android:orientation="vertical"
               android:padding="16dp">
 
+    <!-- Title Text -->
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Manage Jobs"
             android:textSize="24sp"/>
 
-    <!-- Add your layout components here -->
+    <!-- RecyclerView to display list of jobs -->
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerJobs"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <!-- Button to add new job -->
+    <Button
+            android:id="@+id/post_new_job_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Post New Job"
+            android:layout_marginTop="16dp"/>
 
 </LinearLayout>
